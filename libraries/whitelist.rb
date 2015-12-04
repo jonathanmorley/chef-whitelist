@@ -59,7 +59,7 @@ class Chef
         patterns = node.run_state["whitelistdb_#{whitelist}"][attribute] || []
 
         patterns.each do |pattern|
-            if (File.fnmatch?(pattern, self[:fqdn]))
+            if (File.fnmatch?(pattern, self[:fqdn], File::FNM_CASEFOLD))
                 Chef::Log.info "Whitelisting: Matched pattern '#{pattern}' to host '#{self[:fqdn]}' for whitelist '#{whitelist}'."
                 return true
             end
